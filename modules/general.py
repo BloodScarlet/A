@@ -65,5 +65,13 @@ class General:
         em = discord.Embed(color=0xDEADBF)
         await ctx.send(embed=em.set_image(url=res["message"]))
 
+    @commands.command()
+    async def kanna(self, ctx):
+        """Get Kanna Pics"""
+        r = await self.bot.session.get("https://nekobot.xyz/api/image?type=kanna")
+        res = await r.json()
+        em = discord.Embed(color=0xDEADBF)
+        await ctx.send(embed=em.set_image(url=res["message"]))
+
 def setup(bot):
     bot.add_cog(General(bot))
