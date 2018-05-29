@@ -1,0 +1,7 @@
+git+https://github.com/Rapptz/discord.py@rewrite
+websockets==3.4
+aiomysql
+flask
+aiohttp
+pymysql
+aiomysql
