@@ -57,8 +57,7 @@ class Economy:
         if member is None:
             member = ctx.message.author
         balance = await self.get_balance(member.id)
-        em = discord.Embed(color=0xDEADBF, description=str(balance), title=f"{member.name}'s Balance")
-        await ctx.send(embed=em)
+        await ctx.send(f"{member.mention}, you have **{balance}** HentaiCoin <:Gaasm:450703860999258134>")
 
     @commands.command()
     async def daily(self, ctx):
