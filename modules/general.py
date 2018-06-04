@@ -73,5 +73,32 @@ class General:
         em = discord.Embed(color=0xDEADBF)
         await ctx.send(embed=em.set_image(url=res["message"]))
 
+    @commands.command()
+    async def help(self, ctx):
+        """HentaiBoi Help"""
+        try:
+            em = discord.Embed(color=0xDEADBF)
+            em.add_field(name="General", value="`help`, `latency`, `invite`, `info`, `neko`, `kanna`",
+                         inline=False)
+            em.add_field(name="Fun", value="`weebify`, `bodypillow`, `ship`, `awooify`",
+                         inline=False)
+            em.add_field(name="Economy", value="`balance`, `daily`",
+                         inline=False)
+            em.add_field(name="Hentai", value="`hentai`, `lewdneko`, `anal`, `holo`, `lewdkitsune`, `trap`",
+                         inline=False)
+            em.add_field(name="IRL NSFW", value="`pgif`, `4k`, `gonewild`, `thighs`, `ass`, `pussy`",
+                         inline=False)
+            em.add_field(name="Weeb", value="`animepic`, `kiss`, `hug`, `pat`, `cuddle`",
+                         inline=False)
+            await ctx.send(embed=em)
+        except:
+            await ctx.send("I can't send embeds.")
+        try:
+            emoji = self.bot.get_emoji(450703860999258134)
+            await ctx.message.add_reaction(emoji)
+        except:
+            pass
+
 def setup(bot):
+    bot.remove_command('help')
     bot.add_cog(General(bot))

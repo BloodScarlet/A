@@ -56,8 +56,12 @@ class Economy:
             await self.create_user(ctx.message.author.id)
         if member is None:
             member = ctx.message.author
-        balance = await self.get_balance(member.id)
-        await ctx.send(f"{member.mention}, you have **{balance}** HentaiCoin <:Gaasm:450703860999258134>")
+            balance = await self.get_balance(member.id)
+            msg = f"{member.mention}, you have **{balance}** HentaiCoin <:Gaasm:450703860999258134>"
+        else:
+            balance = await self.get_balance(member.id)
+            msg = f"{member.name} has **{balance}** HentaiCoin <:Gaasm:450703860999258134>"
+        await ctx.send(msg)
 
     @commands.command()
     async def daily(self, ctx):
