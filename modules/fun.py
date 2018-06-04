@@ -78,5 +78,38 @@ class Fun:
             return await ctx.send(embed=discord.Embed(color=0xDEADBF, description="Failed to successfully get the image."))
         await ctx.send(embed=discord.Embed(color=0xDEADBF).set_image(url=res['message']))
 
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def jpeg(self, ctx, user:discord.Member):
+        """JPEGify Someone"""
+        await ctx.trigger_typing()
+        avatar = user.avatar_url_as(format='png')
+        r = await self.bot.session.get(f"https://nekobot.xyz/api/imagegen?type=jpeg&url={avatar}")
+        res = await r.json()
+        if res['success'] != True:
+            return await ctx.send(embed=discord.Embed(color=0xDEADBF, description="Failed to successfully get the image."))
+        await ctx.send(embed=discord.Embed(color=0xDEADBF).set_image(url=res['message']))
+
+    @commands.command()
+    @commands.cooldown(1, 7, commands.BucketType.user)
+    async def deepfry(self, ctx, user:discord.Member):
+        """Deepfry Someones Avatar"""
+        await ctx.trigger_typing()
+        avatar = user.avatar_url_as(format='png')
+        r = await self.bot.session.get(f"https://nekobot.xyz/api/imagegen?type=deepfry&image={avatar}")
+        res = await r.json()
+        if res['success'] != True:
+            return await ctx.send(embed=discord.Embed(color=0xDEADBF, description="Failed to successfully get the image."))
+        await ctx.send(embed=discord.Embed(color=0xDEADBF).set_image(url=res['message']))
+
+    @commands.command()
+    @commands.cooldown(1, 3, commands.BucketType.user)
+    async def bigletter(self, ctx, *, text: str):
+        """Big Letter Generator"""
+        await ctx.trigger_typing()
+        r = await self.bot.session.get("http://nekobot.xyz/api/text?type=bigletter&text=" + text)
+        res = await r.json()
+        return await ctx.send(res["message"])
+
 def setup(bot):
     bot.add_cog(Fun(bot))

@@ -80,9 +80,9 @@ class General:
             em = discord.Embed(color=0xDEADBF)
             em.add_field(name="General", value="`help`, `latency`, `invite`, `info`, `neko`, `kanna`",
                          inline=False)
-            em.add_field(name="Fun", value="`weebify`, `bodypillow`, `ship`, `awooify`",
+            em.add_field(name="Fun", value="`weebify`, `bodypillow`, `ship`, `awooify`, `jpeg`, `deepfry`, `bigletter`",
                          inline=False)
-            em.add_field(name="Economy", value="`balance`, `daily`",
+            em.add_field(name="Economy", value="`balance`, `daily`, `transfer`",
                          inline=False)
             em.add_field(name="Hentai", value="`hentai`, `lewdneko`, `anal`, `holo`, `lewdkitsune`, `trap`",
                          inline=False)
