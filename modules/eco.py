@@ -80,5 +80,33 @@ class Economy:
         else:
             return await ctx.send("Come back tomorrow for your next daily!")
 
+    @commands.command()
+    async def transfer(self, ctx, user:discord.Member, amount:int):
+        """Transfer HentaiCoin to Users"""
+        if not await self.usercheck(ctx.message.author.id):
+            await self.create_user(ctx.message.author.id)
+        if user.bot:
+            return await ctx.send("You can't send money to bots.")
+        if user == ctx.message.author:
+            return await ctx.send("You can't send yourself money")
+        if amount <= 0:
+            return await ctx.send("The amount must be higher than 0")
+        author = ctx.message.author
+        balance = await self.get_balance(author.id)
+        if amount > balance:
+            return await ctx.send("You don't have that much to transfer.")
+
+        if not await self.usercheck(user.id):
+            await self.create_user(user.id)
+
+        user_balance = await self.get_balance(user.id)
+        new_author_balance = int(balance - amount)
+        new_user_balance = int(user_balance + amount)
+
+        await self.update_credits(author.id, new_author_balance)
+        await self.update_credits(user.id, new_user_balance)
+
+        await ctx.send(f"📬 Sent **{user.name} {amount}** HentaiCoin.")
+
 def setup(bot):
     bot.add_cog(Economy(bot))
