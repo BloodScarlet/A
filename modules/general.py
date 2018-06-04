@@ -82,7 +82,7 @@ class General:
                          inline=False)
             em.add_field(name="Fun", value="`weebify`, `bodypillow`, `ship`, `awooify`, `jpeg`, `deepfry`, `bigletter`",
                          inline=False)
-            em.add_field(name="Economy", value="`balance`, `daily`, `transfer`",
+            em.add_field(name="Economy", value="`balance`, `daily`, `transfer`, `bet`",
                          inline=False)
             em.add_field(name="Hentai", value="`hentai`, `lewdneko`, `anal`, `holo`, `lewdkitsune`, `trap`",
                          inline=False)

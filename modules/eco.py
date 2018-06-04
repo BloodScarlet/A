@@ -1,5 +1,5 @@
 from discord.ext import commands
-import discord, time
+import discord, time, random
 
 class Economy:
 
@@ -107,6 +107,28 @@ class Economy:
         await self.update_credits(user.id, new_user_balance)
 
         await ctx.send(f"📬 Sent **{user.name} {amount}** HentaiCoin.")
+
+    @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
+    async def bet(self, ctx, amount:int):
+        """Bet 50/50 with your HentaiCoin, winning will increase amount by 1.5x"""
+        if not await self.usercheck(ctx.message.author.id):
+            await self.create_user(ctx.message.author.id)
+        if amount < 5:
+            return await ctx.send("Your bet must be higher than 5.")
+        if amount > 12500:
+            return await ctx.send("You cant spend more than 12,500 at once.")
+        author = ctx.message.author
+        balance = await self.get_balance(author.id)
+        if amount > balance:
+            return await ctx.send("You don't have that much to spend.")
+        choice = random.randint(0, 1)
+        if choice == 0:
+            await self.update_credits(author.id, int(balance - amount))
+            return await ctx.send("You lost!")
+        else:
+            await self.update_credits(author.id, int(balance + int(amount * 1.5)))
+            return await ctx.send(f"You won {int(amount * 1.5)}!")
 
 def setup(bot):
     bot.add_cog(Economy(bot))
