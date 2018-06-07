@@ -1,10 +1,21 @@
 from discord.ext import commands
+from .utils.images import boobbot
 import discord
 
 class NSFW:
 
     def __init__(self, bot):
         self.bot = bot
+
+    @commands.cooldown(1, 2, commands.BucketType.user)
+    @commands.command()
+    @commands.guild_only()
+    async def yaoi(self, ctx):
+        if not ctx.message.channel.is_nsfw():
+            em = discord.Embed(color=0xff6928, description="This isnt an NSFW Channel <:vanillaStare:441126443842404352>")
+            return await ctx.send(embed=em, delete_after=3)
+        em = discord.Embed(color=0xDEADBF).set_image(url=(await boobbot("yaoi")))
+        await ctx.send(embed=em)
 
     @commands.command()
     @commands.guild_only()
@@ -51,14 +62,28 @@ class NSFW:
     @commands.guild_only()
     @commands.cooldown(1, 1, commands.BucketType.user)
     async def holo(self, ctx):
-        """Holo from spice and wolf owo (NSFW to make sure nothing lood)"""
+        """Lewd Holo from Spice and Wolf"""
         if not ctx.message.channel.is_nsfw():
             em = discord.Embed(color=0xff6928,
                                description="This isnt an NSFW Channel <:vanillaStare:441126443842404352>")
             return await ctx.send(embed=em, delete_after=3)
-        r = await self.bot.session.get("https://nekobot.xyz/api/image?type=holo")
+        r = await self.bot.session.get("https://nekos.life/api/v2/img/hololewd")
         res = await r.json()
-        em = discord.Embed(color=0xDEADBF).set_image(url=res["message"])
+        em = discord.Embed(color=0xDEADBF).set_image(url=res["url"])
+        await ctx.send(embed=em)
+
+    @commands.command()
+    @commands.guild_only()
+    @commands.cooldown(1, 1, commands.BucketType.user)
+    async def gasm(self, ctx):
+        """Get gasm images."""
+        if not ctx.message.channel.is_nsfw():
+            em = discord.Embed(color=0xff6928,
+                               description="This isnt an NSFW Channel <:vanillaStare:441126443842404352>")
+            return await ctx.send(embed=em, delete_after=3)
+        r = await self.bot.session.get("https://nekos.life/api/v2/img/gasm")
+        res = await r.json()
+        em = discord.Embed(color=0xDEADBF).set_image(url=res["url"])
         await ctx.send(embed=em)
 
     @commands.command()

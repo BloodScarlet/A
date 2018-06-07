@@ -1,4 +1,5 @@
 from discord.ext import commands
+from .utils.images import boobbot
 import discord
 
 class IRL_NSFW:
@@ -16,6 +17,15 @@ class IRL_NSFW:
         r = await self.bot.session.get("https://nekobot.xyz/api/image?type=pgif")
         res = await r.json()
         em = discord.Embed(color=0xDEADBF).set_image(url=res["message"])
+        await ctx.send(embed=em)
+
+    @commands.command()
+    @commands.guild_only()
+    async def bdsm(self, ctx):
+        if not ctx.message.channel.is_nsfw():
+            em = discord.Embed(color=0xff6928, description="This isnt an NSFW Channel <:vanillaStare:441126443842404352>")
+            return await ctx.send(embed=em, delete_after=3)
+        em = discord.Embed(color=0xDEADBF).set_image(url=(await boobbot("bdsm")))
         await ctx.send(embed=em)
 
     @commands.command(name="4k")
@@ -49,9 +59,7 @@ class IRL_NSFW:
         if not ctx.message.channel.is_nsfw():
             em = discord.Embed(color=0xff6928, description="This isnt an NSFW Channel <:vanillaStare:441126443842404352>")
             return await ctx.send(embed=em, delete_after=3)
-        r = await self.bot.session.get("https://nekobot.xyz/api/image?type=thigh")
-        res = await r.json()
-        em = discord.Embed(color=0xDEADBF).set_image(url=res["message"])
+        em = discord.Embed(color=0xDEADBF).set_image(url=(await boobbot("thighs")))
         await ctx.send(embed=em)
 
     @commands.command()
@@ -61,9 +69,7 @@ class IRL_NSFW:
         if not ctx.message.channel.is_nsfw():
             em = discord.Embed(color=0xff6928, description="This isnt an NSFW Channel <:vanillaStare:441126443842404352>")
             return await ctx.send(embed=em, delete_after=3)
-        r = await self.bot.session.get("https://nekobot.xyz/api/image?type=ass")
-        res = await r.json()
-        em = discord.Embed(color=0xDEADBF).set_image(url=res["message"])
+        em = discord.Embed(color=0xDEADBF).set_image(url=(await boobbot("ass")))
         await ctx.send(embed=em)
 
     @commands.command()

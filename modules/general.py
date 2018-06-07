@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord, datetime
+from .utils.images import neko
 
 class General:
 
@@ -60,10 +61,8 @@ class General:
     @commands.command()
     async def neko(self, ctx):
         """Get cute nekos :3"""
-        r = await self.bot.session.get("https://nekobot.xyz/api/image?type=neko")
-        res = await r.json()
         em = discord.Embed(color=0xDEADBF)
-        await ctx.send(embed=em.set_image(url=res["message"]))
+        await ctx.send(embed=em.set_image(url=(await neko())))
 
     @commands.command()
     async def kanna(self, ctx):
@@ -84,9 +83,10 @@ class General:
                          inline=False)
             em.add_field(name="Economy", value="`balance`, `daily`, `transfer`, `bet`",
                          inline=False)
-            em.add_field(name="Hentai", value="`hentai`, `lewdneko`, `anal`, `holo`, `lewdkitsune`, `trap`",
+            em.add_field(name="Hentai", value="`hentai`, `lewdneko`, `anal`, `holo`, `lewdkitsune`, `trap`, `gasm`, "
+                                              "`yaoi`",
                          inline=False)
-            em.add_field(name="IRL NSFW", value="`pgif`, `4k`, `gonewild`, `thighs`, `ass`, `pussy`",
+            em.add_field(name="IRL NSFW", value="`pgif`, `4k`, `gonewild`, `thighs`, `ass`, `pussy`, `bdsm`",
                          inline=False)
             em.add_field(name="Weeb", value="`animepic`, `kiss`, `hug`, `pat`, `cuddle`",
                          inline=False)
