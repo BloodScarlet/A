@@ -7,6 +7,16 @@ class error_handler:
     def __init__(self, bot):
         self.bot = bot
 
+    async def send_cmd_help(self, ctx):
+        if ctx.invoked_subcommand:
+            pages = await self.bot.formatter.format_help_for(ctx, ctx.invoked_subcommand)
+            for page in pages:
+                await ctx.send(page)
+        else:
+            pages = await self.bot.formatter.format_help_for(ctx, ctx.command)
+            for page in pages:
+                await ctx.send(page)
+
     async def on_command_error(self, ctx, e):
         if isinstance(e, commands.NoPrivateMessage):
             return
@@ -36,9 +46,9 @@ class error_handler:
             }
             await self.bot.session.post(self.bot.webhook, json=payload)
         elif isinstance(e, commands.BadArgument):
-            await self.bot.send_cmd_help(ctx)
+            await self.send_cmd_help(ctx)
         elif isinstance(e, commands.MissingRequiredArgument):
-            await self.bot.send_cmd_help(ctx)
+            await self.send_cmd_help(ctx)
         elif isinstance(e, commands.CheckFailure):
             await ctx.send('You are not allowed to use that command.', delete_after=5)
         elif isinstance(e, commands.CommandOnCooldown):

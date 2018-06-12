@@ -2,7 +2,17 @@ from discord.ext import commands
 from collections import Counter
 import discord, datetime, os
 import aiohttp, aiomysql
-import json
+import json, logging
+
+log = logging.getLogger()
+log.setLevel(logging.INFO)
+logFormat = logging.Formatter("[%(asctime)s] [%(levelname)s] %(name)s: %(message)s")
+fileHandler = logging.FileHandler(filename=f"logs/{datetime.utcnow()}.log", encoding="utf-8", mode="w")
+fileHandler.setFormatter(logFormat)
+consoleHandler = logging.StreamHandler()
+consoleHandler.setFormatter(logFormat)
+log.addHandler(fileHandler)
+log.addHandler(consoleHandler)
 
 def _prefix_callable(bot, msg):
     prefixes = ['h!', 'H!']

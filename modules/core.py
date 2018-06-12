@@ -20,6 +20,12 @@ class Core:
 
     @commands.command(hidden=True)
     @commands.is_owner()
+    async def say(self, ctx, *, message:str):
+        """Send a message from the bot"""
+        await ctx.send(message)
+
+    @commands.command(hidden=True)
+    @commands.is_owner()
     async def load(self, ctx, *, module):
         """Loads a module."""
         module = "modules." + module
