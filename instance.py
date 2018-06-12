@@ -49,16 +49,18 @@ class Instance:
         self.bot.add_listener(self.on_message)
         self.bot.run(self.bot.config["token"])
 
-        self.bot.load_extension("events.error_handler")
-        self.bot.load_extension("events.ready")
-        self.bot.load_extension("events.misc")
-
         async def _init_sql():
             self.sql_conn = await aiomysql.create_pool(host='localhost', port=3306,
                                               user='root', password=self.bot.config["dbpass"],
                                               db='hentaiboi', loop=self.bot.loop, autocommit=True)
 
         self.bot.loop.create_task(_init_sql())
+
+    async def on_ready(self):
+        log.info(f"Instance {self.bot.instance} Ready..")
+        self.bot.load_extension("events.error_handler")
+        self.bot.load_extension("events.ready")
+        self.bot.load_extension("events.misc")
 
         for file in os.listdir("modules"):
             if file.endswith(".py"):
@@ -69,8 +71,6 @@ class Instance:
                 except Exception as e:
                     log.error(f"Failed to load {name}, {e}")
 
-    async def on_ready(self):
-        log.info(f"Instance {self.bot.instance} Ready..")
         self.pipe.send(1)
         self.pipe.close()
 

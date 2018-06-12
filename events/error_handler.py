@@ -1,6 +1,8 @@
 from discord.ext import commands
 import discord
-import traceback, sys
+import traceback, sys, logging
+
+log = logging.getLogger()
 
 class error_handler:
 
@@ -31,9 +33,9 @@ class error_handler:
                                title="Error",
                                description=f"Error in {ctx.command.qualified_name}\n"
                                            f"Support sevrer: https://discord.gg/q98qeYN")
-            print('In {}:'.format(ctx.command.qualified_name), file=sys.stderr)
+            log.info('In {}:'.format(ctx.command.qualified_name), file=sys.stderr)
             traceback.print_tb(e.original.__traceback__)
-            print('{}: {}'.format(e.original.__class__.__name__, e.original), file=sys.stderr)
+            log.info('{}: {}'.format(e.original.__class__.__name__, e.original), file=sys.stderr)
             await ctx.send(embed=em)
             payload = {
                 "embeds": [

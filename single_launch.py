@@ -7,7 +7,7 @@ import json, logging
 log = logging.getLogger()
 log.setLevel(logging.INFO)
 logFormat = logging.Formatter("[%(asctime)s] [%(levelname)s] %(name)s: %(message)s")
-fileHandler = logging.FileHandler(filename=f"logs/{datetime.utcnow()}.log", encoding="utf-8", mode="w")
+fileHandler = logging.FileHandler(filename=f"logs/{datetime.datetime.utcnow()}.log", encoding="utf-8", mode="w")
 fileHandler.setFormatter(logFormat)
 consoleHandler = logging.StreamHandler()
 consoleHandler.setFormatter(logFormat)
@@ -70,7 +70,6 @@ class HentaiBoi(commands.AutoShardedBot):
         await self.process_commands(message)
 
     async def close(self):
-        print("[CLOSING]")
         await super().close()
         await self.close()
 

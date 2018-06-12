@@ -1,4 +1,6 @@
-import discord, asyncio
+import discord, asyncio, logging
+
+log = logging.getLogger()
 
 class Ready:
 
@@ -7,7 +9,7 @@ class Ready:
         self.dbl_auth = { "Authorization": self.bot.config["dbl"] }
 
     async def on_shard_ready(self, shard_id):
-        print(f"[INFO] Shard {shard_id} ready.")
+        log.info(f"[INFO] Shard {shard_id} ready.")
         payload = {
             "embeds": [
                 {
@@ -26,13 +28,13 @@ class Ready:
         return game
 
     async def on_ready(self):
-        print("-----------------")
-        print(f"[INFO] Ready!")
+        log.info("-----------------")
+        log.info(f"[INFO] Ready!")
         members = len(set(self.bot.get_all_members()))
         guilds = len(self.bot.guilds)
-        print(f"Shards: {self.bot.shard_count}")
-        print(f"Servers {guilds}")
-        print(f"Users {members}")
+        log.info(f"Shards: {self.bot.shard_count}")
+        log.info(f"Servers {guilds}")
+        log.info(f"Users {members}")
         if not hasattr(self.bot, "wewloop"):
             self.bot.wewloop = True
             while True:
