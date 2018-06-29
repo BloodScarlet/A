@@ -33,9 +33,8 @@ class error_handler:
                                title="Error",
                                description=f"Error in {ctx.command.qualified_name}\n"
                                            f"Support sevrer: https://discord.gg/q98qeYN")
-            log.info('In {}:'.format(ctx.command.qualified_name), file=sys.stderr)
-            traceback.print_tb(e.original.__traceback__)
-            log.info('{}: {}'.format(e.original.__class__.__name__, e.original), file=sys.stderr)
+            log.info('In {}:'.format(ctx.command.qualified_name))
+            log.info('{}: {}'.format(e.original.__class__.__name__, e.original))
             await ctx.send(embed=em)
             payload = {
                 "embeds": [
