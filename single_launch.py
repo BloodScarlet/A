@@ -26,6 +26,7 @@ class HentaiBoi(commands.AutoShardedBot):
                          pm_help=None,
                          shard_id=0,
                          status=discord.Status.dnd,
+                         fetch_offline_members=False,
                          help_attrs={'hidden': True})
         self.command_usage = Counter()
         self.session = aiohttp.ClientSession(loop=self.loop)

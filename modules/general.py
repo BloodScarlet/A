@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord, datetime
 from .utils.images import neko
+import string
 
 class General:
 
@@ -57,6 +58,16 @@ class General:
                                        f"Commands: **{commands}**\n"
                                        f"Uptime: **{self.get_bot_uptime(brief=False)}**")
         await ctx.send(embed=em)
+
+    # async def on_member_update(self, before, after):
+    #     try:
+    #         if not before.guild.id == 221989003400970241:
+    #             return
+    #         if not before.display_name == after.display_name:
+    #             if not after.display_name[0] in list(str(string.ascii_letters)):
+    #                 await after.edit(nick="Hoister", reason="Hoisting")
+    #     except:
+    #         pass
 
     @commands.command()
     async def neko(self, ctx):
