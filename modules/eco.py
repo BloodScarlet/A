@@ -64,6 +64,7 @@ class Economy:
         await ctx.send(msg)
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def daily(self, ctx):
         """Get your daily credits!"""
         if not await self.usercheck(ctx.message.author.id):
@@ -81,6 +82,7 @@ class Economy:
             return await ctx.send("Come back tomorrow for your next daily!")
 
     @commands.command()
+    @commands.cooldown(1, 5, commands.BucketType.user)
     async def transfer(self, ctx, user:discord.Member, amount:int):
         """Transfer HentaiCoin to Users"""
         if not await self.usercheck(ctx.message.author.id):
