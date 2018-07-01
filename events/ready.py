@@ -7,6 +7,7 @@ class Ready:
     def __init__(self, bot):
         self.bot = bot
         self.dbl_auth = { "Authorization": self.bot.config["dbl"] }
+        self.listcord_auth = { "Authorization": self.bot.config["listcord"] }
 
     async def on_shard_ready(self, shard_id):
         log.info(f"[INFO] Shard {shard_id} ready.")
@@ -45,6 +46,11 @@ class Ready:
                                                "server_count": len(self.bot.guilds),
                                                "shard_count": self.bot.shard_count
                                            })
+                await self.bot.session.post(f"https://listcord.com/api/bot/{self.bot.user.id}/guilds",
+                                            headers=self.listcord_auth,
+                                            json={
+                                                "guilds": len(self.bot.guilds)
+                                            })
                 await asyncio.sleep(1800)
 
 def setup(bot):
